@@ -1,0 +1,17 @@
+*.suo
+*.user
+*.sln.docstates
+*.GhostDoc.xml
+[Dd]ebug/
+[Rr]elease/
+[Ss]taging/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+!packages/*/build/
+publish/
+*.Publish.xml
+packages/
+csx
+*.build.csdef
