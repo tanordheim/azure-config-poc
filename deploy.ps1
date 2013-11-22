@@ -34,7 +34,7 @@ $DeploymentLabel = "$ProjectName $Environment Deployment %build.number%"
 
 Import-Module "C:\Program Files (x86)\Microsoft SDKs\Windows Azure\PowerShell\Azure\*.psd1"
 Import-AzurePublishSettingsFile "C:\Users\teamcity\OutracksAzure.publishsettings"
-Set-AzureSubscription -CurrentStorageAccount "$AzureServiceName" -SubscriptionName "$AzureSubscriptionName"
+Set-AzureSubscription -CurrentStorageAccount "$AzureStorageAccountName" -SubscriptionName "$AzureSubscriptionName"
 
 function AbortDeployment( $message ) {
     Write-Output "##teamcity[buildStatus status='FAILURE' text='{build.status.text} $message']"
