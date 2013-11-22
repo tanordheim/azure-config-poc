@@ -118,7 +118,7 @@ function CreateNewDeployment()
     Write-Output "##teamcity[blockOpened name='$Environment Deployment']"
     Write-Output "##teamcity[message text='Creating new deployment for $Environment environment']"
  
-    $result = New-AzureDeployment -Slot "$Environment" -Package "$package" -Configuration "$configuration" -label "$DeploymentLabel" -ServiceName "$AzureServiceName"
+    $result = New-AzureDeployment -Slot "$Environment" -Package "$AzurePackage" -Configuration "$ServiceConfiguration" -label "$DeploymentLabel" -ServiceName "$AzureServiceName"
     if ( $result -eq $null )
     {
         AbortDeployment("Unable to create new deployment")
@@ -139,7 +139,7 @@ function UpgradeDeployment()
     Write-Output "##teamcity[message text='Upgrading existing deployment for $Environment environment']"
 
     # perform Update-Deployment
-    $result = Set-AzureDeployment -Upgrade -Slot "$Environment" -Package "$package" -Configuration "$configuration" -label "$DeploymentLabel" -ServiceName "$AzureServiceName" -Force
+    $result = Set-AzureDeployment -Upgrade -Slot "$Environment" -Package "$AzurePAckage" -Configuration "$ServiceConfiguration" -label "$DeploymentLabel" -ServiceName "$AzureServiceName" -Force
     if ( $result -eq $null )
     {
         AbortDeployment("Unable to upgrade deployment")
