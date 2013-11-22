@@ -17,10 +17,12 @@ $AzurePackage = "$ProjectName.cspkg"
 $ServiceConfig = "ServiceConfiguration.Cloud.cscfg"
 
 if (!(Test-Path "$AzurePackage")) {
-	throw "Azure package $AzurePackage not found"
+	Write-Output "##teamcity[message text='Azure package $AzurePackage not found' status='WARNING']"
+	Exit 1
 }
 if (!(Test-Path "$ServiceConfig")) {
-	throw "Service configuration $ServiceConfig not found"
+	Write-Output "##teamcity[message text='Service configuration $AzurePackage not found' status='WARNING']"
+	Exit 1
 }
 
 $DeploymentLabel = "$ProjectName $Environment Deployment %build.number%"
