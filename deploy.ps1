@@ -10,7 +10,10 @@ param (
     [string]$AzureServiceName,
 
     [Parameter(Position=3, Mandatory=$True)]
-    [string]$AzureSubscriptionName
+    [string]$AzureSubscriptionName,
+
+    [Parameter(Position=4, Mandatory=$True)]
+    [string]$AzureStorageAccountName
 )
 
 $AzurePackage = "$ProjectName\bin\Release\app.publish\$ProjectName.cspkg"
