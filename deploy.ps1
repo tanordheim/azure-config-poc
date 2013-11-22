@@ -13,8 +13,8 @@ param (
     [string]$AzureSubscriptionName
 )
 
-$AzurePackage = "$ProjectName.cspkg"
-$ServiceConfig = "ServiceConfiguration.Cloud.cscfg"
+$AzurePackage = "$ProjectName\bin\Release\app.publish\$ProjectName.cspkg"
+$ServiceConfig = "$ProjectName\bin\Release\app.publish\ServiceConfiguration.Cloud.cscfg"
 
 if (!(Test-Path "$AzurePackage")) {
 	Write-Output "##teamcity[message text='Azure package $AzurePackage not found' status='WARNING']"
