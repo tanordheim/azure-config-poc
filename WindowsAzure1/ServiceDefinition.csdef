@@ -15,7 +15,7 @@
       <Import moduleName="Diagnostics" />
     </Imports>
     <ConfigurationSettings>
-      <Setting name="test_setting" />
+      <Setting name="ENVIRONMENT" />
     </ConfigurationSettings>
   </WebRole>
 </ServiceDefinition>

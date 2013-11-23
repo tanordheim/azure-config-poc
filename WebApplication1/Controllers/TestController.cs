@@ -19,7 +19,12 @@ namespace WebApplication1.Controllers
         {
             if (RoleEnvironment.IsAvailable && !RoleEnvironment.IsEmulated)
             {
-                return CloudConfigurationManager.GetSetting("test_setting");
+                var env = CloudConfigurationManager.GetSetting("ENVIRONMENT");
+                var envSetting = ConfigurationManager.AppSettings[string.Format("{0}_test_setting", env)];
+                if (!string.IsNullOrWhiteSpace(envSetting))
+                {
+                    return envSetting;
+                }
             }
             return ConfigurationManager.AppSettings["test_setting"];
         }
