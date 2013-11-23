@@ -7,7 +7,10 @@
     </xsl:template>
     <xsl:template match="//sc:Setting[@name='ENVIRONMENT']">
     	<xsl:copy>
-    		<xsl:attribute name="value">
+            <xsl:attribute name="name">
+                <xsl:value-of select="@name" />
+            </xsl:attribute>
+            <xsl:attribute name="value">
     			<xsl:text>STAGING</xsl:text>
     		</xsl:attribute>
     	</xsl:copy>

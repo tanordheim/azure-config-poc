@@ -8,6 +8,9 @@
   
   <xsl:template match="//sc:Setting[@name='ENVIRONMENT']">
     	<xsl:copy>
+            <xsl:attribute name="name">
+                <xsl:value-of select="@name" />
+            </xsl:attribute>
     		<xsl:attribute name="value">
     			<xsl:text>PRODUCTION</xsl:text>
     		</xsl:attribute>
