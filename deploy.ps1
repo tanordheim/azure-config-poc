@@ -32,6 +32,15 @@ $DeploymentLabel = "$ProjectName $Environment Deployment %build.number%"
 
 #------------------------------------------------------------------------
 
+$TransformedServiceConfig = "ServiceConfiguration.Environment-$Environment.cscfg"
+$XslStylesheet = "EnvironmentTransform.$Environment.xslt"
+
+$xslt = New-Object System.Xml.Xsl.XslCompiledTransform
+$xslt.Load($XslStylesheet)
+$xslt.Transform($ServiceConfig, $TransformedServiceConfig)
+
+#------------------------------------------------------------------------
+
 Import-Module "C:\Program Files (x86)\Microsoft SDKs\Windows Azure\PowerShell\Azure\*.psd1"
 Import-AzurePublishSettingsFile "C:\Users\teamcity\OutracksAzure.publishsettings"
 Set-AzureSubscription -CurrentStorageAccount "$AzureStorageAccountName" -SubscriptionName "$AzureSubscriptionName"
@@ -121,7 +130,7 @@ function CreateNewDeployment()
     Write-Output "##teamcity[blockOpened name='$Environment Deployment']"
     Write-Output "##teamcity[message text='Creating new deployment for $Environment environment']"
  
-    $result = New-AzureDeployment -Slot "$Environment" -Package "$AzurePackage" -Configuration "$ServiceConfig" -label "$DeploymentLabel" -ServiceName "$AzureServiceName"
+    $result = New-AzureDeployment -Slot "$Environment" -Package "$AzurePackage" -Configuration "$TransformedServiceConfig" -label "$DeploymentLabel" -ServiceName "$AzureServiceName"
     if ( $result -eq $null )
     {
         AbortDeployment("Unable to create new deployment")
@@ -142,7 +151,7 @@ function UpgradeDeployment()
     Write-Output "##teamcity[message text='Upgrading existing deployment for $Environment environment']"
 
     # perform Update-Deployment
-    $result = Set-AzureDeployment -Upgrade -Slot "$Environment" -Package "$AzurePAckage" -Configuration "$ServiceConfig" -label "$DeploymentLabel" -ServiceName "$AzureServiceName" -Force
+    $result = Set-AzureDeployment -Upgrade -Slot "$Environment" -Package "$AzurePAckage" -Configuration "$TransformedServiceConfig" -label "$DeploymentLabel" -ServiceName "$AzureServiceName" -Force
     if ( $result -eq $null )
     {
         AbortDeployment("Unable to upgrade deployment")
